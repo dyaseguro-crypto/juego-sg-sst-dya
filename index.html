@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Juego del SG-SST - DYA Gestión Preventiva</title>
+    
+    <!-- Meta Tags para Redes Sociales -->
+    <meta property="og:title" content="El Juego del SG-SST - DYA Gestión Preventiva">
+    <meta property="og:description" content="¿Sabes cuánto conoces sobre los Estándares Mínimos del SG-SST de tu empresa? ¡Juega y descúbrelo!">
+    <meta property="og:image" content="https://dyaseguro-crypto.github.io/formulario-contacto/logo-dya.png">
+    <meta property="og:url" content="https://dyaseguro-crypto.github.io/juego-sg-sst-dya">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="DYA Gestión Preventiva SST">
+
+    <!-- Para Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="El Juego del SG-SST - DYA Gestión Preventiva">
+    <meta name="twitter:description" content="Evalúa tus conocimientos sobre SG-SST con este juego interactivo">
+    <meta name="twitter:image" content="https://dyaseguro-crypto.github.io/formulario-contacto/logo-dya.png">
+
+    <style>
+        :root {
+            --color-primary: #003366;
+            --color-secondary: #00cc66;
+            --color-accent: #00994d;
+            --color-light: #f5f9ff;
+            --color-dark: #00264d;
+            --color-gold: #ffd700;
+            --color-next: #6a5acd;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--color-light) 0%, #e6f2ff 100%);
+            color: var(--color-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 15px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-dark) 100%);
+            color: white;
+            padding: 20px 15px;
+            border-radius: 12px 12px 0 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        .motto {
+            font-size: 14px;
+            opacity: 0.9;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        
+        .game-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin: 15px 0 8px;
+        }
+        
+        .game-subtitle {
+            font-size: 16px;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+        
+        .game-container {
+            background-color: white;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            padding: 25px 20px;
+            margin-bottom: 15px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .step {
+            display: none;
+        }
+        
+        .step.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h1, h2, h3 {
+            color: var(--color-primary);
+            margin-bottom: 15px;
+        }
+        
+        h1 {
+            font-size: 24px;
+            text-align: center;
+        }
+        
+        h2 {
+            font-size: 20px;
+        }
+        
+        .question {
+            margin-bottom: 20px;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .option {
+            padding: 12px 15px;
+            background-color: var(--color-light);
+            border: 2px solid #d1e0ff;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 15px;
+        }
+        
+        .option:hover {
+            background-color: var(--color-secondary);
+            color: white;
+            border-color: var(--color-secondary);
+            transform: translateY(-2px);
+        }
+        
+        .option.selected {
+            background-color: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+        }
+        
+        .option.correct {
+            background-color: var(--color-secondary);
+            color: white;
+            border-color: var(--color-secondary);
+        }
+        
+        .option.incorrect {
+            background-color: #ff6b6b;
+            color: white;
+            border-color: #ff6b6b;
+        }
+        
+        .btn {
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            display: block;
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-accent) 100%);
+        }
+        
+        .btn-next {
+            background: linear-gradient(135deg, var(--color-next) 0%, #7b68ee 100%);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .progress-container {
+            margin: 20px 0;
+        }
+        
+        .progress-label {
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--color-primary);
+            margin-bottom: 8px;
+            text-align: center;
+        }
+        
+        .progress-bar {
+            height: 12px;
+            background-color: #e6e6e6;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-secondary) 0%, var(--color-accent) 100%);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 6px;
+        }
+        
+        .result {
+            text-align: center;
+            padding: 15px;
+        }
+        
+        .score {
+            font-size: 60px;
+            font-weight: bold;
+            color: var(--color-primary);
+            margin: 20px 0;
+        }
+        
+        .score-perfect {
+            color: var(--color-gold);
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .crack-message {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--color-gold);
+            margin: 12px 0;
+        }
+        
+        .contact-info {
+            background: linear-gradient(135deg, #f0f8ff 0%, #e6f2ff 100%);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            border-left: 5px solid var(--color-secondary);
+        }
+        
+        .classification-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        @media (min-width: 480px) {
+            .classification-options {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        .classification-option {
+            padding: 18px 15px;
+            background-color: var(--color-light);
+            border: 2px solid #d1e0ff;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .classification-option:hover {
+            background-color: var(--color-secondary);
+            color: white;
+            border-color: var(--color-secondary);
+            transform: translateY(-3px);
+        }
+        
+        .classification-option.selected {
+            background-color: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+        }
+        
+        .risk-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        
+        @media (min-width: 480px) {
+            .risk-options {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .risk-option {
+            padding: 15px 10px;
+            background-color: var(--color-light);
+            border: 2px solid #d1e0ff;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .risk-option:hover {
+            background-color: var(--color-secondary);
+            color: white;
+            border-color: var(--color-secondary);
+            transform: translateY(-3px);
+        }
+        
+        .risk-option.selected {
+            background-color: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+        }
+        
+        .footer {
+            text-align: center;
+            font-size: 13px;
+            color: #666;
+            margin-top: 20px;
+            padding: 12px;
+            background-color: white;
+            border-radius: 8px;
+        }
+        
+        .contact-link {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-dark) 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .info-box {
+            background-color: #e6f7ff;
+            border-left: 4px solid var(--color-secondary);
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .classification-summary {
+            background: linear-gradient(135deg, #f8fffe 0%, #e6fff9 100%);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 2px solid var(--color-secondary);
+        }
+        
+        .feedback {
+            text-align: center;
+            margin: 12px 0;
+            font-weight: bold;
+            min-height: 22px;
+        }
+        
+        .positive-feedback {
+            color: var(--color-secondary);
+        }
+        
+        .negative-feedback {
+            color: #ff6b6b;
+        }
+        
+        .question-counter {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .debug-info {
+            font-size: 12px;
+            color: #999;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">DYA GESTIÓN PREVENTIVA SST S.A.S</div>
+            <div class="motto">Gestionamos los riesgos hoy para asegurar el futuro de tu empresa</div>
+            <div class="game-title">El Juego del SG-SST</div>
+            <div class="game-subtitle">¿Qué sabes acerca de la Auditoría de Estándares Mínimos del SG-SST de tu empresa?</div>
+        </header>
+        
+        <div class="game-container">
+            <!-- Paso 1: Introducción -->
+            <div id="step-intro" class="step active">
+                <h1>¡Bienvenido al Juego del SG-SST!</h1>
+                <p>Este juego interactivo te ayudará a evaluar tus conocimientos sobre los Estándares Mínimos del Sistema de Gestión de Seguridad y Salud en el Trabajo (SG-SST).</p>
+                
+                <div class="info-box">
+                    <p><strong>Nota:</strong> Esta es una herramienta de sensibilización de DYA Gestión Preventiva SST SAS y no sustituye una auditoría formal.</p>
+                </div>
+                
+                <button id="btn-start" class="btn btn-primary">Comenzar Evaluación</button>
+            </div>
+            
+            <!-- Paso 2: Clasificación por número de trabajadores -->
+            <div id="step-workers" class="step">
+                <h2>Clasificación de tu empresa</h2>
+                <p>Selecciona el rango de trabajadores de tu empresa:</p>
+                <div class="classification-options">
+                    <div class="classification-option" data-value="1-10">1-10 trabajadores</div>
+                    <div class="classification-option" data-value="11-50">11-50 trabajadores</div>
+                    <div class="classification-option" data-value="51+">51 o más trabajadores</div>
+                </div>
+                <button id="btn-next-risk" class="btn btn-primary" disabled>Siguiente</button>
+            </div>
+            
+            <!-- Paso 3: Clasificación por nivel de riesgo -->
+            <div id="step-risk" class="step">
+                <h2>Nivel de riesgo de tu empresa</h2>
+                <p>Selecciona el nivel de riesgo de tu empresa según la clasificación de la ARL:</p>
+                <div class="risk-options">
+                    <div class="risk-option" data-value="I">Riesgo I (Mínimo)</div>
+                    <div class="risk-option" data-value="II">Riesgo II (Bajo)</div>
+                    <div class="risk-option" data-value="III">Riesgo III (Medio)</div>
+                    <div class="risk-option" data-value="IV">Riesgo IV (Alto)</div>
+                    <div class="risk-option" data-value="V">Riesgo V (Máximo)</div>
+                </div>
+                
+                <div class="classification-summary" id="classification-info">
+                    <!-- La información de clasificación se actualizará aquí -->
+                </div>
+                
+                <button id="btn-start-quiz" class="btn btn-primary" disabled>Iniciar Evaluación</button>
+            </div>
+            
+            <!-- Paso 4: Preguntas -->
+            <div id="step-questions" class="step">
+                <h2>Tu juego está activo</h2>
+                <div class="progress-container">
+                    <div class="progress-label">Progreso del juego</div>
+                    <div class="progress-bar">
+                        <div class="progress" id="quiz-progress"></div>
+                    </div>
+                </div>
+                <div class="question-counter" id="question-counter">Pregunta 1 de 10</div>
+                <div class="feedback" id="question-feedback"></div>
+                <div id="question-container">
+                    <!-- Las preguntas se cargarán aquí dinámicamente -->
+                </div>
+                <button id="btn-next-question" class="btn btn-next" disabled>Siguiente Pregunta</button>
+                <div class="debug-info" id="debug-info"></div>
+            </div>
+            
+            <!-- Paso 5: Resultados -->
+            <div id="step-results" class="step">
+                <div class="result">
+                    <h2>Resultados de tu evaluación</h2>
+                    <div class="score" id="final-score">0%</div>
+                    <div id="crack-message" class="crack-message" style="display: none;">¡Eres un Crack!</div>
+                    <p id="result-message"></p>
+                    
+                    <div id="advice-container">
+                        <div class="contact-info">
+                            <h3>Pide una asesoría especializada con DYA Gestión Preventiva SST</h3>
+                            <p>Te mostramos cómo desarrollar una Cultura Preventiva Sostenible.</p>
+                            
+                            <p><strong>Contacto:</strong></p>
+                            <p>📧 dya.seguro@gmail.com</p>
+                            <p>📱 +57 3133885021</p>
+                            <p>📍 Bucaramanga / Colombia</p>
+                            
+                            <a href="https://dyaseguro-crypto.github.io/formulario-contacto/" class="contact-link" target="_blank">
+                                Solicitar Asesoría Gratuita
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <button id="btn-restart" class="btn btn-primary">Realizar Otra Evaluación</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Este juego está basado en la Resolución 0312 de 2019 y el Decreto 1072 de 2015. Es una herramienta educativa de DYA Gestión Preventiva SST SAS.</p>
+        </div>
+    </div>
+
+    <script>
+        // Variables globales
+        let currentStep = 'step-intro';
+        let companySize = '';
+        let riskLevel = '';
+        let totalQuestions = 0;
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let questions = [];
+        
+        // Banco de preguntas por categoría - AMPLIADO para tener suficientes preguntas
+        const questionBank = {
+            '1-10': [
+                {
+                    question: "Según la Resolución 0312 de 2019, ¿quién puede diseñar el SG-SST para empresas de hasta 10 trabajadores con riesgo I, II o III?",
+                    options: [
+                        "Cualquier trabajador de la empresa",
+                        "Un técnico en SST con licencia vigente, mínimo 1 año de experiencia y curso virtual de 50 horas",
+                        "Solo un profesional con posgrado en SST",
+                        "No es necesario diseñar un SG-SST formal"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué debe incluir el Plan Anual de Trabajo del SG-SST según los estándares mínimos?",
+                    options: [
+                        "Solo los objetivos generales",
+                        "Objetivos, metas, responsabilidades, recursos y cronograma anual",
+                        "Solo el cronograma de actividades",
+                        "No es necesario un Plan Anual para empresas pequeñas"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Con qué periodicidad debe realizarse la identificación de peligros y evaluación de riesgos?",
+                    options: [
+                        "Cada 5 años",
+                        "Solo cuando ocurra un accidente",
+                        "Con acompañamiento de la ARL y cuando haya cambios significativos",
+                        "No es obligatorio para empresas pequeñas"
+                    ],
+                    correct: 2
+                },
+                {
+                    question: "¿Quiénes pueden realizar las evaluaciones médicas ocupacionales?",
+                    options: [
+                        "Cualquier médico general",
+                        "Médicos especialistas en medicina del trabajo o SST con licencia vigente",
+                        "Solo el personal de la ARL",
+                        "No son obligatorias para empresas pequeñas"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué debe contener la política de SST para empresas pequeñas?",
+                    options: [
+                        "Solo el compromiso genérico de la empresa",
+                        "Debe estar escrita, firmada, fechada y comunicada a todos los trabajadores",
+                        "Solo los objetivos generales de seguridad",
+                        "No es necesaria una política formal"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué debe incluir el programa de capacitación anual en SST?",
+                    options: [
+                        "Solo inducción general",
+                        "Contenido sobre peligros/riesgos prioritarios y medidas de prevención y control",
+                        "Solo temas seleccionados por la ARL",
+                        "No es obligatorio un programa formal"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué documentos deben archivarse según los estándares mínimos para empresas pequeñas?",
+                    options: [
+                        "Solo los contratos de trabajo",
+                        "Política de SST, identificación de peligros, conceptos de exámenes médicos, plan de emergencias, entre otros",
+                        "Solo los reportes de accidentes",
+                        "No se especifica en la normativa"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué debe incluir el plan de prevención, preparación y respuesta ante emergencias para empresas pequeñas?",
+                    options: [
+                        "Solo los números de emergencia",
+                        "Identificación de amenazas, evaluación de vulnerabilidad y señalización básica",
+                        "Solo la lista de brigadistas",
+                        "No es obligatorio para empresas pequeñas"
+                    ],
+                    correct: 1
+                }
+            ],
+            '11-50': [
+                {
+                    question: "¿Qué perfil debe tener la persona que diseña el SG-SST para empresas de 11 a 50 trabajadores con riesgo I, II o III?",
+                    options: [
+                        "Cualquier trabajador designado por la empresa",
+                        "Tecnólogo en SST con licencia vigente, 2 años de experiencia y curso virtual de 50 horas",
+                        "Solo profesionales con maestría en SST",
+                        "No se requiere un perfil específico"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué comité debe conformarse en empresas de 11 a 50 trabajadores?",
+                    options: [
+                        "Solo el COPASST",
+                        "COPASST y Comité de Convivencia Laboral",
+                        "No es necesario conformar comités",
+                        "Solo el Comité de Convivencia Laboral"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué debe incluir el programa de capacitación anual en SST?",
+                    options: [
+                        "Solo inducción general",
+                        "Contenido sobre peligros/riesgos prioritarios y medidas de prevención y control",
+                        "Solo temas seleccionados por la ARL",
+                        "No es obligatorio un programa formal"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Con qué periodicidad debe realizarse la revisión por la alta dirección del SG-SST?",
+                    options: [
+                        "Cada 5 años",
+                        "Cada 2 años",
+                        "Como mínimo una vez al año",
+                        "No es obligatoria para este tipo de empresas"
+                    ],
+                    correct: 2
+                },
+                {
+                    question: "¿Qué debe contener la política de SST?",
+                    options: [
+                        "Solo el compromiso genérico de la empresa",
+                        "Debe estar escrita, firmada, fechada y comunicada al COPASST y a todos los trabajadores",
+                        "Solo los objetivos generales de seguridad",
+                        "No es necesaria una política formal"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué documentos deben archivarse según los estándares mínimos?",
+                    options: [
+                        "Solo los contratos de trabajo",
+                        "Política de SST, identificación de peligros, conceptos de exámenes médicos, plan de emergencias, entre otros",
+                        "Solo los reportes de accidentes",
+                        "No se especifica en la normativa"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué debe incluir el plan de prevención, preparación y respuesta ante emergencias?",
+                    options: [
+                        "Solo los números de emergencia",
+                        "Identificación de amenazas, evaluación de vulnerabilidad, planos, señalización y simulacros anuales",
+                        "Solo la lista de brigadistas",
+                        "No es obligatorio para empresas de este tamaño"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué debe incluir la matriz legal del SG-SST?",
+                    options: [
+                        "Solo la Resolución 0312 de 2019",
+                        "Normas vigentes en riesgos laborales aplicables a la empresa",
+                        "Todas las normas colombianas vigentes",
+                        "No es obligatoria una matriz legal"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Con qué periodicidad debe realizarse la identificación de peligros?",
+                    options: [
+                        "Cada 5 años",
+                        "Cada 2 años",
+                        "Como mínimo una vez al año y cuando ocurran cambios significativos",
+                        "Solo cuando lo solicite la ARL"
+                    ],
+                    correct: 2
+                },
+                {
+                    question: "¿Qué indicadores mínimos de SST debe medir la empresa?",
+                    options: [
+                        "Solo la frecuencia de accidentalidad",
+                        "Frecuencia y severidad de accidentalidad",
+                        "Solo los que determine la ARL",
+                        "No es obligatorio medir indicadores"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué debe hacer la empresa cuando se detecta que las medidas de prevención son inadecuadas?",
+                    options: [
+                        "Solo documentar la situación",
+                        "Tomar medidas correctivas, preventivas y/o de mejora",
+                        "Esperar a que ocurra un accidente",
+                        "Notificar a la ARL y esperar instrucciones"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué información debe recolectarse para el diagnóstico de condiciones de salud?",
+                    options: [
+                        "Solo la edad y sexo de los trabajadores",
+                        "Descripción sociodemográfica y caracterización de condiciones de salud de todos los trabajadores",
+                        "Solo los resultados de exámenes médicos",
+                        "No es obligatorio este diagnóstico"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué debe incluir el procedimiento para evaluación y selección de proveedores y contratistas?",
+                    options: [
+                        "Solo requisitos económicos",
+                        "Aspectos de SST que permitan verificar el cumplimiento de estándares mínimos",
+                        "Solo experiencia en el sector",
+                        "No se requiere un procedimiento formal"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué debe hacer la empresa con las recomendaciones médicas laborales?",
+                    options: [
+                        "Archivarlas para futura referencia",
+                        "Cumplir las recomendaciones y restricciones emitidas por EPS y ARL",
+                        "Solo considerarlas si el trabajador las solicita",
+                        "No es obligatorio su cumplimiento"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué debe incluir el procedimiento de gestión del cambio?",
+                    options: [
+                        "Solo los cambios de personal",
+                        "Evaluación del impacto sobre SST por cambios internos o externos",
+                        "Solo cambios en los procesos productivos",
+                        "No se requiere un procedimiento formal"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Con qué periodicidad debe realizarse la auditoría interna al SG-SST?",
+                    options: [
+                        "Cada 3 años",
+                        "Cada 2 años",
+                        "Anualmente, planificada con participación del COPASST",
+                        "Solo cuando lo solicite el Ministerio del Trabajo"
+                    ],
+                    correct: 2
+                },
+                {
+                    question: "¿Qué debe incluir el programa de vigilancia epidemiológica?",
+                    options: [
+                        "Solo el registro de ausentismo",
+                        "Seguimiento a indicadores de morbilidad y ausentismo por enfermedad común y laboral",
+                        "Solo los exámenes médicos ocupacionales",
+                        "No es obligatorio para empresas de este tamaño"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué debe contener el programa de inspecciones de seguridad?",
+                    options: [
+                        "Solo lista de verificación básica",
+                        "Planificación, metodología, frecuencia, responsables y seguimiento",
+                        "Solo los reportes de hallazgos",
+                        "No es obligatorio un programa formal"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué debe incluir el procedimiento de investigación de incidentes y accidentes?",
+                    options: [
+                        "Solo el formato de reporte",
+                        "Metodología, responsables, plazos y medidas correctivas",
+                        "Solo la notificación a la ARL",
+                        "No es obligatorio un procedimiento formal"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué debe contener el programa de mantenimiento preventivo?",
+                    options: [
+                        "Solo el cronograma de mantenimiento",
+                        "Equipos, frecuencia, procedimientos y responsables",
+                        "Solo los manuales de los equipos",
+                        "No es obligatorio para empresas de este tamaño"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué debe incluir el sistema de reporte de condiciones de trabajo?",
+                    options: [
+                        "Solo el formato de reporte",
+                        "Mecanismos, responsables, plazos y seguimiento",
+                        "Solo la comunicación verbal",
+                        "No es obligatorio un sistema formal"
+                    ],
+                    correct: 1
+                }
+            ],
+            '51+': [
+                {
+                    question: "¿Qué perfil debe tener la persona que diseña e implementa el SG-SST para empresas de más de 50 trabajadores?",
+                    options: [
+                        "Cualquier profesional designado por la empresa",
+                        "Profesionales en SST o con posgrado en SST, con licencia vigente y curso virtual de 50 horas",
+                        "Solo ingenieros industriales",
+                        "No se requiere un perfil específico"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué debe incluir la matriz legal del SG-SST?",
+                    options: [
+                        "Solo la Resolución 0312 de 2019",
+                        "Normas vigentes en riesgos laborales aplicables a la empresa y normas técnicas según los peligros identificados",
+                        "Todas las normas colombianas vigentes",
+                        "No es obligatoria una matriz legal"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Con qué periodicidad debe realizarse la identificación de peligros con participación de los trabajadores?",
+                    options: [
+                        "Cada 5 años",
+                        "Cada 2 años",
+                        "Como mínimo una vez al año y cuando ocurran cambios significativos",
+                        "Solo cuando lo solicite la ARL"
+                    ],
+                    correct: 2
+                },
+                {
+                    question: "¿Qué indicadores mínimos de SST debe medir la empresa?",
+                    options: [
+                        "Solo la frecuencia de accidentalidad",
+                        "Frecuencia y severidad de accidentalidad, proporción de accidentes mortales, prevalencia e incidencia de enfermedad laboral y ausentismo",
+                        "Solo los que determine la ARL",
+                        "No es obligatorio medir indicadores"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué debe incluir el procedimiento de gestión del cambio?",
+                    options: [
+                        "Solo los cambios de personal",
+                        "Evaluación del impacto sobre SST por cambios internos o externos",
+                        "Solo cambios en los procesos productivos",
+                        "No se requiere un procedimiento formal"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Con qué periodicidad debe realizarse la auditoría interna al SG-SST?",
+                    options: [
+                        "Cada 3 años",
+                        "Cada 2 años",
+                        "Anualmente, planificada con participación del COPASST",
+                        "Solo cuando lo solicite el Ministerio del Trabajo"
+                    ],
+                    correct: 2
+                },
+                {
+                    question: "¿Qué debe hacer la empresa cuando se detecta que las medidas de prevención son inadecuadas?",
+                    options: [
+                        "Solo documentar la situación",
+                        "Tomar medidas correctivas, preventivas y/o de mejora",
+                        "Esperar a que ocurra un accidente",
+                        "Notificar a la ARL y esperar instrucciones"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué información debe recolectarse para el diagnóstico de condiciones de salud?",
+                    options: [
+                        "Solo la edad y sexo de los trabajadores",
+                        "Descripción sociodemográfica y caracterización de condiciones de salud de todos los trabajadores",
+                        "Solo los resultados de exámenes médicos",
+                        "No es obligatorio este diagnóstico"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué debe incluir el procedimiento para evaluación y selección de proveedores y contratistas?",
+                    options: [
+                        "Solo requisitos económicos",
+                        "Aspectos de SST que permitan verificar el cumplimiento de estándares mínimos",
+                        "Solo experiencia en el sector",
+                        "No se requiere un procedimiento formal"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué debe hacer la empresa con las recomendaciones médicas laborales?",
+                    options: [
+                        "Archivarlas para futura referencia",
+                        "Cumplir las recomendaciones y restricciones emitidas por EPS y ARL",
+                        "Solo considerarlas si el trabajador las solicita",
+                        "No es obligatorio su cumplimiento"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué debe incluir el programa de vigilancia epidemiológica?",
+                    options: [
+                        "Solo el registro de ausentismo",
+                        "Seguimiento a indicadores de morbilidad y ausentismo por enfermedad común y laboral",
+                        "Solo los exámenes médicos ocupacionales",
+                        "No es obligatorio para empresas de este tamaño"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué debe contener el programa de inspecciones de seguridad?",
+                    options: [
+                        "Solo lista de verificación básica",
+                        "Planificación, metodología, frecuencia, responsables y seguimiento",
+                        "Solo los reportes de hallazgos",
+                        "No es obligatorio un programa formal"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué debe incluir el procedimiento de investigación de incidentes y accidentes?",
+                    options: [
+                        "Solo el formato de reporte",
+                        "Metodología, responsables, plazos y medidas correctivas",
+                        "Solo la notificación a la ARL",
+                        "No es obligatorio un procedimiento formal"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué debe contener el programa de mantenimiento preventivo?",
+                    options: [
+                        "Solo el cronograma de mantenimiento",
+                        "Equipos, frecuencia, procedimientos y responsables",
+                        "Solo los manuales de los equipos",
+                        "No es obligatorio para empresas de este tamaño"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué debe incluir el sistema de reporte de condiciones de trabajo?",
+                    options: [
+                        "Solo el formato de reporte",
+                        "Mecanismos, responsables, plazos y seguimiento",
+                        "Solo la comunicación verbal",
+                        "No es obligatorio un sistema formal"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué debe contener el programa de inducción y reinducción en SST?",
+                    options: [
+                        "Solo información general de la empresa",
+                        "Contenidos específicos según el cargo y los riesgos asociados",
+                        "Solo el reglamento interno de trabajo",
+                        "No es obligatorio un programa formal"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué debe incluir el procedimiento de permisos de trabajo?",
+                    options: [
+                        "Solo el formato de permiso",
+                        "Tipos de permisos, autorizaciones, condiciones y controles",
+                        "Solo la firma del supervisor",
+                        "No es obligatorio un procedimiento formal"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué debe contener el programa de gestión documental del SG-SST?",
+                    options: [
+                        "Solo los formatos básicos",
+                        "Control de documentos, versiones, distribución y archivo",
+                        "Solo los manuales de procedimiento",
+                        "No es obligatorio un programa formal"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué debe incluir el sistema de gestión de elementos de protección personal?",
+                    options: [
+                        "Solo la entrega de EPP",
+                        "Evaluación, selección, dotación, uso y mantenimiento",
+                        "Solo el inventario de EPP",
+                        "No es obligatorio un sistema formal"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué debe contener el programa de orden y aseo?",
+                    options: [
+                        "Solo limpieza general",
+                        "Estándares, responsables, frecuencia y verificación",
+                        "Solo la señalización de áreas",
+                        "No es obligatorio un programa formal"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué debe incluir el procedimiento de preparación y respuesta ante emergencias?",
+                    options: [
+                        "Solo los números de emergencia",
+                        "Identificación de amenazas, evaluación de vulnerabilidad, planos, señalización y simulacros anuales",
+                        "Solo la lista de brigadistas",
+                        "No es obligatorio un procedimiento formal"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué debe contener el programa de prevención de consumo de alcohol y sustancias psicoactivas?",
+                    options: [
+                        "Solo la prohibición general",
+                        "Política, capacitación, seguimiento y apoyo",
+                        "Solo los exámenes médicos",
+                        "No es obligatorio un programa formal"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué debe incluir el sistema de gestión de contratistas?",
+                    options: [
+                        "Solo el contrato de servicios",
+                        "Evaluación, selección, seguimiento y control de SST",
+                        "Solo la verificación de la ARL",
+                        "No es obligatorio un sistema formal"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué debe contener el programa de promoción de la salud?",
+                    options: [
+                        "Solo campañas esporádicas",
+                        "Actividades planificadas según diagnóstico de salud",
+                        "Solo información general de salud",
+                        "No es obligatorio un programa formal"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué debe incluir el procedimiento de monitoreo ambiental?",
+                    options: [
+                        "Solo mediciones básicas",
+                        "Planificación, metodología, frecuencia y seguimiento",
+                        "Solo los formatos de medición",
+                        "No es obligatorio un procedimiento formal"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué debe contener el sistema de gestión de riesgos psicosociales?",
+                    options: [
+                        "Solo encuestas esporádicas",
+                        "Evaluación, intervención y seguimiento sistemático",
+                        "Solo el buzón de sugerencias",
+                        "No es obligatorio un sistema formal"
+                    ],
+                    correct: 1
+                }
+            ]
+        };
+        
+        // Elementos DOM
+        const steps = document.querySelectorAll('.step');
+        const btnStart = document.getElementById('btn-start');
+        const btnNextRisk = document.getElementById('btn-next-risk');
+        const btnStartQuiz = document.getElementById('btn-start-quiz');
+        const btnNextQuestion = document.getElementById('btn-next-question');
+        const btnRestart = document.getElementById('btn-restart');
+        const workerOptions = document.querySelectorAll('.classification-option');
+        const riskOptions = document.querySelectorAll('.risk-option');
+        const questionContainer = document.getElementById('question-container');
+        const quizProgress = document.getElementById('quiz-progress');
+        const finalScore = document.getElementById('final-score');
+        const resultMessage = document.getElementById('result-message');
+        const classificationInfo = document.getElementById('classification-info');
+        const questionFeedback = document.getElementById('question-feedback');
+        const crackMessage = document.getElementById('crack-message');
+        const questionCounter = document.getElementById('question-counter');
+        const debugInfo = document.getElementById('debug-info');
+        
+        // Event Listeners
+        btnStart.addEventListener('click', () => {
+            showStep('step-workers');
+        });
+        
+        btnNextRisk.addEventListener('click', () => {
+            showStep('step-risk');
+            updateClassificationInfo();
+        });
+        
+        btnStartQuiz.addEventListener('click', () => {
+            initializeQuiz();
+            showStep('step-questions');
+        });
+        
+        btnNextQuestion.addEventListener('click', () => {
+            nextQuestion();
+        });
+        
+        btnRestart.addEventListener('click', () => {
+            resetGame();
+            showStep('step-intro');
+        });
+        
+        workerOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                workerOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                companySize = option.getAttribute('data-value');
+                btnNextRisk.disabled = false;
+            });
+        });
+        
+        riskOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                riskOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                riskLevel = option.getAttribute('data-value');
+                btnStartQuiz.disabled = false;
+                updateClassificationInfo();
+            });
+        });
+        
+        // Funciones
+        function showStep(stepId) {
+            steps.forEach(step => {
+                step.classList.remove('active');
+            });
+            document.getElementById(stepId).classList.add('active');
+            currentStep = stepId;
+        }
+        
+        function updateClassificationInfo() {
+            if (!companySize || !riskLevel) return;
+            
+            let standardsCount = 0;
+            let questionsCount = 0;
+            let description = "";
+            
+            // CORREGIDO: Cantidad de preguntas según especificación
+            if (companySize === '1-10' && ['I', 'II', 'III'].includes(riskLevel)) {
+                standardsCount = 7;
+                questionsCount = 4; // 4 preguntas
+                description = "Empresas de 1-10 trabajadores con riesgo I, II o III deben cumplir 7 estándares mínimos";
+            } else if (companySize === '11-50' && ['I', 'II', 'III'].includes(riskLevel)) {
+                standardsCount = 21;
+                questionsCount = 7; // 7 preguntas
+                description = "Empresas de 11-50 trabajadores con riesgo I, II o III deben cumplir 21 estándares mínimos";
+            } else if ((companySize === '1-10' || companySize === '11-50') && ['IV', 'V'].includes(riskLevel)) {
+                standardsCount = 60;
+                questionsCount = 10; // 10 preguntas
+                description = "Empresas de 1-50 trabajadores con riesgo IV o V deben cumplir 60 estándares mínimos";
+            } else if (companySize === '51+') {
+                standardsCount = 60;
+                questionsCount = 10; // 10 preguntas
+                description = "Empresas de 51+ trabajadores con cualquier nivel de riesgo deben cumplir 60 estándares mínimos";
+            }
+            
+            classificationInfo.innerHTML = `
+                <h3>Resumen de clasificación</h3>
+                <p><strong>Tamaño:</strong> ${companySize} trabajadores</p>
+                <p><strong>Riesgo:</strong> Nivel ${riskLevel}</p>
+                <p><strong>Estándares mínimos:</strong> ${standardsCount}</p>
+                <p><strong>Evaluación:</strong> ${questionsCount} preguntas</p>
+                <p><em>${description}</em></p>
+            `;
+        }
+        
+        function initializeQuiz() {
+            // CORREGIDO: Cantidad de preguntas según especificación
+            if (companySize === '1-10' && ['I', 'II', 'III'].includes(riskLevel)) {
+                totalQuestions = 4; // 4 preguntas
+            } else if (companySize === '11-50' && ['I', 'II', 'III'].includes(riskLevel)) {
+                totalQuestions = 7; // 7 preguntas
+            } else if ((companySize === '1-10' || companySize === '11-50') && ['IV', 'V'].includes(riskLevel)) {
+                totalQuestions = 10; // 10 preguntas
+            } else if (companySize === '51+') {
+                totalQuestions = 10; // 10 preguntas
+            }
+            
+            // Seleccionar preguntas
+            const category = (companySize === '1-10' && ['I', 'II', 'III'].includes(riskLevel)) ? '1-10' : 
+                            (companySize === '11-50' && ['I', 'II', 'III'].includes(riskLevel)) ? '11-50' : '51+';
+            
+            const availableQuestions = [...questionBank[category]];
+            questions = [];
+            
+            console.log(`Categoría: ${category}, Preguntas disponibles: ${availableQuestions.length}, Total requerido: ${totalQuestions}`);
+            
+            // VERIFICACIÓN CRÍTICA: Asegurar que tenemos suficientes preguntas
+            if (availableQuestions.length < totalQuestions) {
+                console.warn(`No hay suficientes preguntas. Disponibles: ${availableQuestions.length}, Requeridas: ${totalQuestions}`);
+                totalQuestions = availableQuestions.length;
+            }
+            
+            // Seleccionar preguntas aleatorias
+            for (let i = 0; i < totalQuestions; i++) {
+                if (availableQuestions.length === 0) break;
+                
+                const randomIndex = Math.floor(Math.random() * availableQuestions.length);
+                questions.push(availableQuestions[randomIndex]);
+                availableQuestions.splice(randomIndex, 1);
+            }
+            
+            // Actualizar totalQuestions por si no hay suficientes preguntas
+            totalQuestions = questions.length;
+            
+            currentQuestionIndex = 0;
+            score = 0;
+            
+            console.log(`Preguntas seleccionadas: ${questions.length}`);
+            
+            displayQuestion();
+            updateProgress();
+        }
+        
+        function displayQuestion() {
+            if (currentQuestionIndex >= totalQuestions) {
+                showResults();
+                return;
+            }
+            
+            const question = questions[currentQuestionIndex];
+            questionCounter.textContent = `Pregunta ${currentQuestionIndex + 1} de ${totalQuestions}`;
+            
+            // Cambiar texto del botón si es la última pregunta
+            if (currentQuestionIndex === totalQuestions - 1) {
+                btnNextQuestion.textContent = "Ver Resultados";
+            } else {
+                btnNextQuestion.textContent = "Siguiente Pregunta";
+            }
+            
+            questionContainer.innerHTML = `
+                <div class="question">
+                    <h3>${question.question}</h3>
+                    <div class="options">
+                        ${question.options.map((option, index) => `
+                            <div class="option" data-index="${index}">${option}</div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            
+            // Agregar event listeners a las opciones
+            const optionElements = questionContainer.querySelectorAll('.option');
+            optionElements.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Prevenir múltiples clics
+                    if (questionContainer.querySelector('.option.correct')) {
+                        return;
+                    }
+                    
+                    // Limpiar selecciones anteriores
+                    optionElements.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    
+                    const selectedIndex = parseInt(this.getAttribute('data-index'));
+                    const isCorrect = selectedIndex === question.correct;
+                    
+                    // Mostrar retroalimentación
+                    optionElements[question.correct].classList.add('correct');
+                    if (!isCorrect) {
+                        this.classList.add('incorrect');
+                    }
+                    
+                    // Mostrar mensaje
+                    if (isCorrect) {
+                        questionFeedback.textContent = "¡Correcto! 🎉";
+                        questionFeedback.className = "feedback positive-feedback";
+                        score++;
+                    } else {
+                        questionFeedback.textContent = "Incorrecto 😕";
+                        questionFeedback.className = "feedback negative-feedback";
+                    }
+                    
+                    // Habilitar botón siguiente
+                    btnNextQuestion.disabled = false;
+                    
+                    // Debug info
+                    debugInfo.textContent = `Pregunta ${currentQuestionIndex + 1}/${totalQuestions} - Score: ${score}`;
+                });
+            });
+            
+            btnNextQuestion.disabled = true;
+            questionFeedback.textContent = "";
+            
+            // Debug info
+            debugInfo.textContent = `Pregunta ${currentQuestionIndex + 1}/${totalQuestions} - Score: ${score}`;
+        }
+        
+        function nextQuestion() {
+            currentQuestionIndex++;
+            
+            if (currentQuestionIndex >= totalQuestions) {
+                showResults();
+                return;
+            }
+            
+            displayQuestion();
+            updateProgress();
+        }
+        
+        function updateProgress() {
+            const progress = (currentQuestionIndex / totalQuestions) * 100;
+            quizProgress.style.width = `${progress}%`;
+        }
+        
+        function showResults() {
+            const percentage = Math.round((score / totalQuestions) * 100);
+            finalScore.textContent = `${percentage}%`;
+            
+            // Determinar estándares
+            let standardsCount = 0;
+            if (companySize === '1-10' && ['I', 'II', 'III'].includes(riskLevel)) {
+                standardsCount = 7;
+            } else if (companySize === '11-50' && ['I', 'II', 'III'].includes(riskLevel)) {
+                standardsCount = 21;
+            } else {
+                standardsCount = 60;
+            }
+            
+            if (percentage === 100) {
+                resultMessage.textContent = "¡Felicidades! Dominas completamente los estándares mínimos del SG-SST que aplican a tu empresa.";
+                crackMessage.style.display = "block";
+                finalScore.classList.add("score-perfect");
+            } else if (percentage >= 80) {
+                resultMessage.textContent = "¡Muy bien! Tienes un buen conocimiento de los estándares mínimos del SG-SST.";
+                crackMessage.style.display = "none";
+            } else if (percentage >= 60) {
+                resultMessage.textContent = "Tienes conocimientos básicos, pero hay áreas importantes que necesitas reforzar.";
+                crackMessage.style.display = "none";
+            } else {
+                resultMessage.textContent = "Es importante que profundices en el conocimiento de los estándares mínimos del SG-SST para tu empresa.";
+                crackMessage.style.display = "none";
+            }
+            
+            showStep('step-results');
+        }
+        
+        function resetGame() {
+            companySize = '';
+            riskLevel = '';
+            totalQuestions = 0;
+            currentQuestionIndex = 0;
+            score = 0;
+            questions = [];
+            
+            workerOptions.forEach(opt => opt.classList.remove('selected'));
+            riskOptions.forEach(opt => opt.classList.remove('selected'));
+            btnNextRisk.disabled = true;
+            btnStartQuiz.disabled = true;
+            quizProgress.style.width = '0%';
+            classificationInfo.innerHTML = '';
+            questionFeedback.textContent = '';
+            crackMessage.style.display = 'none';
+            finalScore.classList.remove("score-perfect");
+            btnNextQuestion.textContent = "Siguiente Pregunta";
+            debugInfo.textContent = '';
+        }
+    </script>
+</body>
+</html>
